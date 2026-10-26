@@ -1,12 +1,19 @@
-"""FastAPI entry point."""
+"""FastAPI entry point and dashboard delivery."""
 from __future__ import annotations
+
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from nile_gate import __version__
 from nile_gate.models import MissionCreate, MissionRecord
 from nile_gate.service import MissionNotFoundError, MissionService
+
+ROOT = Path(__file__).resolve().parent.parent
+STATIC_DIR = ROOT / "static"
 
 app = FastAPI(
     title="Nile Gate API",
@@ -20,7 +27,17 @@ app.add_middleware(
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["Content-Type"],
 )
+if STATIC_DIR.is_dir():
+    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+
 service = MissionService()
+
+
+@app.get("/", include_in_schema=False)
+def dashboard():
+    if not (STATIC_DIR / "index.html").is_file():
+        raise HTTPException(status_code=404, detail="Dashboard assets are not installed.")
+    return FileResponse(STATIC_DIR / "index.html")
 
 
 @app.get("/health")
