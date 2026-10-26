@@ -3,6 +3,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 NILE_GATE_DB_PATH=/var/data/nil
 WORKDIR /app
 COPY pyproject.toml README.md ./
 COPY nile_gate ./nile_gate
+COPY static ./static
 RUN pip install --no-cache-dir .
 RUN mkdir -p /var/data
 EXPOSE 8000
