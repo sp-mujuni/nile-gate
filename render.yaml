@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: nile-gate
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: NILE_GATE_DB_PATH
+        value: /var/data/nile_gate.db
+    disk:
+      name: nile-gate-data
+      mountPath: /var/data
+      sizeGB: 1
