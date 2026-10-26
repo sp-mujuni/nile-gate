@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071426">
+  <title>Nile Gate · Mission Operations</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="/"><span class="brand-mark">NG</span><span><strong>NILE GATE</strong><small>NILE GALACTIC · MISSION SYSTEMS</small></span></a>
+      <div class="nav-label">WORKSPACE</div>
+      <a class="nav-item active" href="#overview">◈ <span>Mission overview</span></a>
+      <a class="nav-item" href="#create">＋ <span>New mission</span></a>
+      <a class="nav-item" href="#agents">⌘ <span>Agent network</span></a>
+      <a class="nav-item" href="#events">≋ <span>Event ledger</span></a>
+      <div class="sidebar-bottom"><span class="pulse"></span><span>Planning environment</span><small id="sidebar-status">CONNECTING</small></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div><span class="eyebrow">NILE GALACTIC / NILE GATE</span><h1>Mission operations</h1></div><div class="top-right"><span class="status-chip"><i></i><span id="health-label">Checking service</span></span><button class="button ghost" id="refresh">↻ Refresh</button></div></header>
+      <section class="banner"><div><span class="eyebrow">SYSTEM MODE · 01</span><h2>Coordinate with clarity.<br><em>Operate with restraint.</em></h2><p>Mission planning, agent coordination, and a traceable record of decisions — in one workspace.</p></div><div class="orbit-art" aria-hidden="true"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="planet"></div><span class="orbit-dot"></span></div><div class="banner-tag">HUMAN REVIEW REQUIRED</div></section>
+      <section class="metrics" id="overview">
+        <article class="metric"><span>MISSIONS RECORDED</span><strong id="mission-count">—</strong><small>Persisted mission records</small></article>
+        <article class="metric"><span>REGISTERED AGENTS</span><strong id="agent-count">—</strong><small>Defined system roles</small></article>
+        <article class="metric"><span>EVENTS IN LEDGER</span><strong id="event-count">—</strong><small>Traceable state changes</small></article>
+        <article class="metric"><span>EXECUTION MODE</span><strong class="mode-text">PLAN ONLY</strong><small>Hardware control disabled</small></article>
+      </section>
+      <section class="content-grid">
+        <article class="panel" id="create">
+          <div class="panel-head"><div><span class="eyebrow">MISSION INTAKE</span><h3>Draft a mission</h3></div><span class="step-tag">01 / CREATE</span></div>
+          <form id="mission-form">
+            <label for="mission-name">Mission name</label><input id="mission-name" name="name" placeholder="e.g. Orbital Survey Demo" required minlength="3" maxlength="120">
+            <label for="objective">Mission objective</label><textarea id="objective" name="objective" placeholder="Describe the goal and what a successful outcome looks like…" required minlength="10" maxlength="2000" rows="3"></textarea>
+            <div class="two-col"><div><label for="environment">Environment</label><select id="environment" name="environment"><option value="simulation">Simulation</option><option value="test">Test environment</option><option value="analysis">Analysis only</option><option value="other">Other / review required</option></select></div><div><label for="waypoints">Stages / waypoints</label><input id="waypoints" name="waypoints" placeholder="start, survey, review"></div></div>
+            <label for="constraints">Constraints <span class="muted">(optional)</span></label><input id="constraints" name="constraints" placeholder="simulation only, review required">
+            <button class="button primary submit-button" type="submit">Create mission draft <span>→</span></button>
+            <p class="form-note">Creating a draft does not execute or authorize a mission.</p>
+          </form>
+          <div id="form-message" class="message" role="status" aria-live="polite"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><div><span class="eyebrow">MISSION REGISTER</span><h3>Recent missions</h3></div><button class="text-button" id="missions-refresh">View latest ↗</button></div>
+          <div id="missions-list" class="mission-list"><div class="empty">Loading mission register…</div></div>
+        </article>
+      </section>
+      <section class="panel agent-panel" id="agents">
+        <div class="panel-head"><div><span class="eyebrow">COORDINATION LAYER</span><h3>Agent network</h3><p class="subhead">Defined roles; outputs are inspectable and planning-only.</p></div><span class="step-tag">06 AGENTS</span></div>
+        <div id="agent-list" class="agent-grid"><div class="empty">Loading agent registry…</div></div>
+      </section>
+      <section class="panel" id="events">
+        <div class="panel-head"><div><span class="eyebrow">PROVENANCE</span><h3>Event ledger</h3><p class="subhead">Latest mission lifecycle events, newest first.</p></div><button class="text-button" id="events-refresh">Refresh ledger ↗</button></div>
+        <div class="table-wrap"><table><thead><tr><th>EVENT</th><th>ACTOR</th><th>MISSION</th><th>TIMESTAMP</th></tr></thead><tbody id="event-rows"><tr><td colspan="4" class="empty">Loading event ledger…</td></tr></tbody></table></div>
+      </section>
+      <footer><span>NILE GATE <b>v0.1.0</b></span><span>Prototype · No hardware interfaces · Human approval required</span></footer>
+    </main>
+  </div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
